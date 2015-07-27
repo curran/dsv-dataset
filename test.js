@@ -29,5 +29,30 @@ describe("dsv-dataset", function () {
     assert.equal(dataset.metadata, metadata);
     assert.equal(typeof dataset.data[0].sepal_length, "string");
   });
-  //Sepal Length,Sepal Width,Petal Length,Petal Width,Class
+
+  it("should parse numeric columns", function() {
+
+    var metadata = {
+      title: "Iris",
+      delimiter: ",",
+      columns: {
+        sepal_length: { type: "number" },
+        sepal_width:  { type: "number" },
+        petal_length: { type: "number" },
+        petal_width:  { type: "number" },
+        class:        { type: "string" }
+      }
+    };
+
+    var dataset = dsvDataset.parse(dsvString, metadata);
+
+    assert.equal(dataset.data.length, dsvString.split("\n").length - 1);
+    assert.equal(dataset.metadata, metadata);
+
+    assert.equal(typeof dataset.data[0].sepal_length, "number");
+    assert.equal(typeof dataset.data[0].sepal_width,  "number");
+    assert.equal(typeof dataset.data[0].petal_length, "number");
+    assert.equal(typeof dataset.data[0].petal_width,  "number");
+    assert.equal(typeof dataset.data[0].class,        "string");
+  });
 });
