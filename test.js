@@ -39,15 +39,20 @@ describe("dsv-dataset", function () {
       delimiter: ","
     };
 
-    var dataset = dsvDataset.parse(dsvString, metadata);
+    var data = dsvDataset.parse(dsvString, metadata);
 
-    assert.equal(dataset.data.length, dsvString.split("\n").length - 1);
-    assert.equal(dataset.metadata, metadata);
-    assert.equal(typeof dataset.data[0].sepal_length, "string");
+    assert.equal(data.length, dsvString.split("\n").length - 1);
+    assert.equal(typeof data[0].sepal_length, "string");
   });
 
   it("should parse numeric columns", function() {
     var dsvString = dsvStrings.iris;
+var dsvString = [
+  "sepal_length,sepal_width,petal_length,petal_width,class",
+  "5.1,3.5,1.4,0.2,setosa",
+  "6.2,2.9,4.3,1.3,versicolor",
+  "6.3,3.3,6.0,2.5,virginica"
+].join("\n");
     var metadata = {
       delimiter: ",",
       columns: {
@@ -59,16 +64,15 @@ describe("dsv-dataset", function () {
       }
     };
 
-    var dataset = dsvDataset.parse(dsvString, metadata);
+    var data = dsvDataset.parse(dsvString, metadata);
 
-    assert.equal(dataset.data.length, dsvString.split("\n").length - 1);
-    assert.equal(dataset.metadata, metadata);
-
-    assert.equal(typeof dataset.data[0].sepal_length, "number");
-    assert.equal(typeof dataset.data[0].sepal_width,  "number");
-    assert.equal(typeof dataset.data[0].petal_length, "number");
-    assert.equal(typeof dataset.data[0].petal_width,  "number");
-    assert.equal(typeof dataset.data[0].class,        "string");
+console.log(JSON.stringify(data, null, 2));
+    assert.equal(data.length, dsvString.split("\n").length - 1);
+    assert.equal(typeof data[0].sepal_length, "number");
+    assert.equal(typeof data[0].sepal_width,  "number");
+    assert.equal(typeof data[0].petal_length, "number");
+    assert.equal(typeof data[0].petal_width,  "number");
+    assert.equal(typeof data[0].class,        "string");
   });
 
   it("should parse date columns", function() {
@@ -81,13 +85,12 @@ describe("dsv-dataset", function () {
       }
     };
 
-    var dataset = dsvDataset.parse(dsvString, metadata);
+    var data = dsvDataset.parse(dsvString, metadata);
 
-    assert.equal(dataset.data.length, dsvString.split("\n").length - 1);
-    assert.equal(dataset.metadata, metadata);
+    assert.equal(data.length, dsvString.split("\n").length - 1);
 
-    assert(dataset.data[0].timestamp instanceof Date);
-    assert.equal(dataset.data[0].timestamp.getMonth(), 2);
-    assert.equal(typeof dataset.data[0].temperature, "number");
+    assert(data[0].timestamp instanceof Date);
+    assert.equal(data[0].timestamp.getMonth(), 2);
+    assert.equal(typeof data[0].temperature, "number");
   });
 });

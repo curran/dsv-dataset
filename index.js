@@ -46,15 +46,12 @@ export default {
 
     var numColumns = columnParsers.length;
     var i;
-    dataset.data = dsv(metadata.delimiter).parse(dsvString, function (d){
+    
+    return dsv(metadata.delimiter).parse(dsvString, function (d){
       for(i = 0; i < numColumns; i++){
         columnParsers[i](d);
       }
       return d;
     });
-
-    dataset.metadata = metadata;
-
-    return dataset;
   }
 };
