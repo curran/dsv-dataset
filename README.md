@@ -74,17 +74,17 @@ Notice how numeric columns have been parsed to numbers.
 
 <a name="parse" href="#parse">#</a> <i>dsvDataset</i>.<b>parse</b>(<i>dsvString</i>, <i>metadata</i>)
 
-Parses the given DSV string using the given metadata. Returns the parsed data table as an array of row objects.
+Parses the given DSV string using the given metadata. Returns the parsed data table.
 
 Arguments:
 
  * `dsvString` The data table represented in DSV format. This will be parsed by [d3-dsv](https://github.com/d3/d3-dsv).
- * `metadata` An object that annotates the DSV data table with metadata, with the following properties:
+ * `metadata` An object that annotates the DSV data table with metadata, with properties
    * `delimiter` (string - single character) The delimiter used between values. Typical values are
-     * `,` (CSV)
-     * `\t` (TSV)
-     * `|`.
-   * `columns` (array of objects) An array of column descriptor objects with properties:
+     * `","` (CSV)
+     * `"\t"` (TSV)
+     * `"|"`.
+   * `columns` (array of objects) An array of column descriptor objects with properties
      * `name` (String) The column name found on the first line of the DSV data set.
      * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
        * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
