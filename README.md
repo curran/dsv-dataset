@@ -98,6 +98,12 @@ Arguments:
        * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
        * If no type is specified, the default is "string".
 
+## Project Structure
+
+The main source file is `index.js`. This exposes the top-level `dsvDataset` module using [ES6 Module Syntax](https://github.com/lukehoban/es6features#modules). This file is transformed into `dsv-dataset.js` by [Rollup](https://github.com/rollup/rollup), which outputs a UMD bundle. Unit tests live in `test.js`, which runs tests against the built file.
+
+To build `dsv-dataset.js` from `index.js` and run unit tests, run `npm test`. This will execute both the `pretest` and `test` scripts specified in `package.json`. The `pretest` script builds the bundle, and the `test` script runs the unit tests using [Mocha](http://mochajs.org/).
+
 ## Future Plans
 
 A future goal of this project is to provide recommentations for how descriptive metadata can be added to data sets. This includes human-readable titles and descriptions for data sets and columns. This metadata can be surfaced in visualizations to provide a nicer user experience. For example, the human-readable title for a column can be used as an axis label (e.g. "Sepal Width"), rather than the not-so-nice column name from the original DSV data (e.g. "sepal_width").
