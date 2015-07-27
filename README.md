@@ -100,7 +100,13 @@ Arguments:
 
 ## Project Structure
 
-The main source file is `index.js`. This exposes the top-level `dsvDataset` module using [ES6 Module Syntax](https://github.com/lukehoban/es6features#modules). This file is transformed into `dsv-dataset.js` by [Rollup](https://github.com/rollup/rollup), which outputs a UMD bundle. Unit tests live in `test.js`, which runs tests against the built file.
+This project uses [NPM](https://www.npmjs.com/) as the primary build tool. The file `package.json` specifies that this project depends on [d3-dsv](https://github.com/d3/d3-dsv) and [moment.js](http://momentjs.com/).
+
+The main source file is `index.js`. This exposes the top-level `dsvDataset` module using [ES6 Module Syntax](https://github.com/lukehoban/es6features#modules). This file is transformed into `dsv-dataset.js` by [Rollup](https://github.com/rollup/rollup), which outputs a [UMD](https://github.com/umdjs/umd) bundle.
+
+Note that since `d3-dsv` exposes ES6 modules via the `jsnext:main` field in its `package.json`, Rollup includes the necessary modules directly in the `dsv-dataset.js` bundle. Conversely, `moment` is treated as an "external module", so Rollup transforms it into a Node.js `require("moment")` call, and Node.js is responsible for loading the package at runtime.
+
+Unit tests live in `test.js`. These tests run against the built file, `dsv-dataset.js`.
 
 To build `dsv-dataset.js` from `index.js` and run unit tests, run `npm test`. This will execute both the `pretest` and `test` scripts specified in `package.json`. The `pretest` script builds the bundle, and the `test` script runs the unit tests using [Mocha](http://mochajs.org/).
 
