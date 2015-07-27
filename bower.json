@@ -1,0 +1,24 @@
+{
+  "name": "dsv-dataset",
+  "main": "dsv-dataset.js",
+  "homepage": "https://github.com/curran/dsv-dataset",
+  "authors": [
+    "Curran <curran.kelleher@gmail.com>"
+  ],
+  "description": "A metadata specification and parsing library for data sets.",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "dsv",
+    "csv",
+    "tsv",
+    "metadata",
+    "schema",
+    "data"
+  ],
+  "license": "MIT"
+}

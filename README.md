@@ -5,12 +5,19 @@ One of the many recurring issues in data visualization is parsing data sets. Dat
 
 The primary purpose of this library is to provide a way to annotate DSV data sets with type information about their columns, so they can be automatically parsed. This enables developers to shift the logic of how to parse columns out of visualization code, and into a separate metadata specification.
 
-## Usage
-Require the library via NPM:
+## Installation
+
+Install via NPM: `npm install dsv-dataset`
+
+Require the library via Node.js / Browserify:
 
 ```javascript
 var dsvDataset = require("dsv-dataset");
 ```
+
+You can also require the library via Bower: `bower install dsv-dataset`. The file `bower_components/dsv-dataset/dsv-dataset.js` contains a [UMD](https://github.com/umdjs/umd) bundle, which can be included via a `<script>` tag, or using [RequireJS](http://requirejs.org/).
+
+## Example
 
 Here is an example program that parses three columns from the [Iris dataset](https://archive.ics.uci.edu/ml/datasets/Iris).
 
