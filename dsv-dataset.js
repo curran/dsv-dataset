@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  global.dsvDataset = factory();
-}(this, function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('moment')) :
+  typeof define === 'function' && define.amd ? define(['moment'], factory) :
+  global.dsvDataset = factory(moment);
+}(this, function (moment) { 'use strict';
 
   function dsv(delimiter) {
     var reFormat = new RegExp("[\"" + delimiter + "\n]"),
@@ -121,8 +121,9 @@
   }
 
   var parseFunctions = {
-    number: function (str) {
-      return +str;
+    number: parseFloat,
+    date: function (str) {
+      return moment(str).toDate();
     }
   };
 

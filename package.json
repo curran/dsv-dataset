@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "rollup --format=umd --name dsvDataset --output dsv-dataset.js index.js",
+    "pretest": "rollup --format=umd --name dsvDataset --external moment --output dsv-dataset.js index.js",
     "test": "mocha"
   },
   "repository": {
@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/curran/dsv-dataset#readme",
   "dependencies": {
-    "d3-dsv": "^0.1.5"
+    "d3-dsv": "^0.1.5",
+    "moment": "^2.10.5"
   }
 }

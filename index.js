@@ -1,8 +1,10 @@
 import { dsv } from "d3-dsv";
+import moment from "moment";
 
 var parseFunctions = {
-  number: function (str) {
-    return +str;
+  number: parseFloat,
+  date: function (str) {
+    return moment(str).toDate();
   }
 };
 
