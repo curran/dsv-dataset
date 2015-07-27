@@ -47,26 +47,19 @@ describe("dsv-dataset", function () {
 
   it("should parse numeric columns", function() {
     var dsvString = dsvStrings.iris;
-var dsvString = [
-  "sepal_length,sepal_width,petal_length,petal_width,class",
-  "5.1,3.5,1.4,0.2,setosa",
-  "6.2,2.9,4.3,1.3,versicolor",
-  "6.3,3.3,6.0,2.5,virginica"
-].join("\n");
     var metadata = {
       delimiter: ",",
-      columns: {
-        sepal_length: { type: "number" },
-        sepal_width:  { type: "number" },
-        petal_length: { type: "number" },
-        petal_width:  { type: "number" },
-        class:        { type: "string" }
-      }
+      columns: [
+        { name: "sepal_length", type: "number" },
+        { name: "sepal_width",  type: "number" },
+        { name: "petal_length", type: "number" },
+        { name: "petal_width",  type: "number" },
+        { name: "class",        type: "string" }
+      ]
     };
 
     var data = dsvDataset.parse(dsvString, metadata);
 
-console.log(JSON.stringify(data, null, 2));
     assert.equal(data.length, dsvString.split("\n").length - 1);
     assert.equal(typeof data[0].sepal_length, "number");
     assert.equal(typeof data[0].sepal_width,  "number");
@@ -79,10 +72,10 @@ console.log(JSON.stringify(data, null, 2));
     var dsvString = dsvStrings.temperature;
     var metadata = {
       delimiter: ",",
-      columns: {
-        timestamp: { type: "date" },
-        temperature: { type: "number" }
-      }
+      columns: [
+        { name: "timestamp", type: "date" },
+        { name: "temperature", type: "number" }
+      ]
     };
 
     var data = dsvDataset.parse(dsvString, metadata);

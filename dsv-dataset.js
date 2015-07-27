@@ -132,14 +132,7 @@
     var columnParsers = [];
 
     if("columns" in metadata){
-      columnParsers = Object.keys(metadata.columns)
-
-        // Extract the array of column metadata objects.
-        .map(function (columnName){
-          var column = metadata.columns[columnName];
-          column.name = columnName;
-          return column;
-        })
+      columnParsers = metadata.columns
 
         // Do not generate column parsing functions for string columns,
         // because they are already strings and need no modification.
