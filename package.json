@@ -1,6 +1,6 @@
 {
   "name": "dsv-dataset",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A metadata specification and parsing library for data sets.",
   "main": "dsv-dataset.js",
   "jsnext:main": "index.js",
@@ -32,5 +32,8 @@
   "dependencies": {
     "d3-dsv": "^0.1.5",
     "moment": "^2.10.5"
+  },
+  "devDependencies": {
+    "rollup": "^0.11.4"
   }
 }
