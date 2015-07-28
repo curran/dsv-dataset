@@ -133,10 +133,10 @@ Each entry in the `columns` array will have the following optional properties:
  * `title` (string) A human readable name for the column. Should be a single word or as few words as possible. Intended for use on axis labels and column selection UI widgets.
  * `description` (string - Markdown) A human readable free text description of the data set. This can be Markdown, so can include links. The length of this should be about one sentence, and should communicate the meaning of the column to the user. Intended for use in tooltips when hovering over axes in a visualization, and for entries in user interfaces for selecting columns (e.g. dropdown menu or drag & drop column list).
 
-Similarly to [Dublin Core "Levels of interoperability"](http://dublincore.org/metadata-basics/), DSV data sets could have incrementally more useful and powerful "levels" of metadata annotation. These levels might look something like this:
+Similarly to [Dublin Core "Levels of interoperability"](http://dublincore.org/metadata-basics/), or [Five Stars of Linked Data](http://www.w3.org/DesignIssues/LinkedData.html#fivestar), DSV data sets could have incrementally more useful and powerful "levels" of metadata annotation. These levels might look something like this:
 
  * Level 0 - The DSV string is published on the Web, with no metadata at all.
- * Level 1 - Metadata that includes the delimiter and type of each column is present.
+ * Level 1 - Metadata that includes the delimiter and type of each column is published.
  * Level 3 - The data set is given a title, description, and source URL.
  * Level 4 - All columns have a title.
  * Level 5 - All columns have a description.
