@@ -3,7 +3,7 @@ A metadata specification and parsing library for data sets.
 
 One of the many recurring issues in data visualization is parsing data sets. Data sets are frequently represented in a delimiter-separated value (DSV) format, such as [comma-separated value (CSV)](https://en.wikipedia.org/wiki/Comma-separated_values) or tab-separated value (TSV). Conveniently, the [d3-dsv](https://github.com/d3/d3-dsv) library supports parsing such data sets. However, the resulting parsed data table has string values for every column, and it is up to the developer to parse those string values into numbers or dates, depending on the data.
 
-The primary purpose of this library is to provide a way to annotate DSV data sets with type information about their columns, so they can be automatically parsed. This enables developers to shift the logic of how to parse columns out of visualization code, and into a separate metadata specification.
+**The primary purpose of this library is to provide a way to annotate DSV data sets with type information about their columns, so they can be automatically parsed.** This enables developers to shift the logic of how to parse columns out of visualization code, and into a separate metadata specification.
 
 ## Installation
 
