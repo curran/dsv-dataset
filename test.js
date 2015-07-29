@@ -86,4 +86,21 @@ describe("dsv-dataset", function () {
     assert.equal(data[0].timestamp.getMonth(), 2);
     assert.equal(typeof data[0].temperature, "number");
   });
+
+  it("should assume CSV if no delimiter specified", function() {
+    var dsvString = dsvStrings.iris;
+    var metadata = { };
+    var data = dsvDataset.parse(dsvString, metadata);
+
+    assert.equal(data.length, dsvString.split("\n").length - 1);
+    assert.equal(typeof data[0].sepal_length, "string");
+  });
+
+  it("should work if no metadata argument provided", function() {
+    var dsvString = dsvStrings.iris;
+    var data = dsvDataset.parse(dsvString);
+
+    assert.equal(data.length, dsvString.split("\n").length - 1);
+    assert.equal(typeof data[0].sepal_length, "string");
+  });
 });

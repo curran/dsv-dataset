@@ -128,11 +128,8 @@
   };
 
   function generateColumnParsers(metadata) {
-
-    var columnParsers = [];
-
     if("columns" in metadata){
-      columnParsers = metadata.columns
+      return metadata.columns
 
         // Do not generate column parsing functions for string columns,
         // because they are already strings and need no modification.
@@ -147,19 +144,25 @@
             d[columnName] = parseValue(d[columnName]);
           }
         });
+    } else {
+      return [];
     }
-    return columnParsers;
   }
 
   var index = {
     parse: function (dsvString, metadata){
-      var dataset = {};
-      var columnParsers = generateColumnParsers(metadata);
 
+      // Handle the case where `metadata` is not speficied.
+      metadata = metadata || {};
+
+      // Default to CSV if no delimiter speficied.
+      var delimiter = metadata.delimiter || ",";
+
+      var columnParsers = generateColumnParsers(metadata);
       var numColumns = columnParsers.length;
       var i;
-      
-      return dsv(metadata.delimiter).parse(dsvString, function (d){
+
+      return dsv(delimiter).parse(dsvString, function (d){
         for(i = 0; i < numColumns; i++){
           columnParsers[i](d);
         }
