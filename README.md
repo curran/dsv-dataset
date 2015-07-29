@@ -85,10 +85,10 @@ Parses the given DSV string using the given metadata. Returns the parsed data ta
 
 Arguments:
 
- * `dsvString` The data table represented in DSV format. This will be parsed by [d3-dsv](https://github.com/d3/d3-dsv).
- * `metadata` An object that annotates the DSV data table with metadata, with properties
-   * `delimiter` (string - single character) The delimiter used between values. Typical values are
-     * `","` (CSV)
+ * `dsvString` (string) The data table represented in DSV format, parsed by [d3-dsv](https://github.com/d3/d3-dsv).
+ * `metadata` (object, optional) Annotates the data table with metadata, with properties
+   * `delimiter` (string, optional) The delimiter used between values. Typical values are
+     * `","` (CSV) This is the default used if no delimiter is specified.
      * `"\t"` (TSV)
      * `"|"`.
    * `columns` (array of objects) An array of column descriptor objects with properties
