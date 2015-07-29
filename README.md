@@ -137,6 +137,6 @@ Similarly to [Dublin Core "Levels of interoperability"](http://dublincore.org/me
 
  * Level 0 - The DSV string is published on the Web, with no metadata at all.
  * Level 1 - Metadata that includes the delimiter and type of each column is published.
- * Level 3 - The data set is given a title, description, and source URL.
- * Level 4 - All columns have a title.
- * Level 5 - All columns have a description.
+ * Level 2 - The data set is given a title, description, and source URL.
+ * Level 3 - All columns have a title.
+ * Level 4 - All columns have a description.
