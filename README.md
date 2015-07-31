@@ -92,7 +92,7 @@ Argument structure:
      * `delimiter` (string, optional) The delimiter used between values. Typical values are
        * `","` (CSV) This is the default used if no delimiter is specified.
        * `"\t"` (TSV)
-       * `"|"`.
+       * `"|"`
      * `columns` (array of objects) An array of column descriptor objects with properties
        * `name` (String) The column name found on the first line of the DSV data set.
        * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
