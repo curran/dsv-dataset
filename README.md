@@ -86,19 +86,20 @@ Parses the given DSV dataset, which is comprised of a DSV string and a metadata 
 
 Argument structure:
 
- * <i>dataset</i> (object) The dataset representation, with properties
-   * `dsvString` (string) The data table represented in DSV format, parsed by [d3-dsv](https://github.com/d3/d3-dsv).
-   * `metadata` (object, optional) Annotates the data table with metadata, with properties
-     * `delimiter` (string, optional) The delimiter used between values. Typical values are
-         * `","` (CSV) This is the default used if no delimiter is specified.
-         * `"\t"` (TSV)
-         * `"|"`
-     * `columns` (array of objects) An array of column descriptor objects with properties
-       * `name` (String) The column name found on the first line of the DSV data set.
-       * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
-         * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
-         * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
-         * If no type is specified, the default is "string".
+<i>dataset</i> (object) The dataset representation, with properties
+
+* `dsvString` (string) The data table represented in DSV format, parsed by [d3-dsv](https://github.com/d3/d3-dsv).
+* `metadata` (object, optional) Annotates the data table with metadata, with properties
+    * `delimiter` (string, optional) The delimiter used between values. Typical values are
+        * `","` (CSV) This is the default used if no delimiter is specified.
+        * `"\t"` (TSV)
+        * `"|"`
+    * `columns` (array of objects) An array of column descriptor objects with properties
+        * `name` (String) The column name found on the first line of the DSV data set.
+        * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
+            * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
+            * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
+            * If no type is specified, the default is "string".
 
 ## Project Structure
 
