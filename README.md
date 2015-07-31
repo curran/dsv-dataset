@@ -123,6 +123,7 @@ The development flow for me is 1.) edit code and save 2.) run `npm test`.
 
 ## Future Plans
 
+
 A future goal of this project is to provide recommentations for how descriptive metadata can be added to data sets. This includes human-readable titles and descriptions for data sets and columns. This metadata can be surfaced in visualizations to provide a nicer user experience. For example, the human-readable title for a column can be used as an axis label (e.g. "Sepal Width"), rather than the not-so-nice column name from the original DSV data (e.g. "sepal_width").
 
 The `metadata` object will have the following optional properties:
