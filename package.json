@@ -9,7 +9,7 @@
   },
   "scripts": {
     "pretest": "rollup --format=umd --name dsvDataset --external moment --output dsv-dataset.js index.js",
-    "test": "./node_modules/.bin/mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
