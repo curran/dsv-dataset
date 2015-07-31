@@ -34,73 +34,80 @@ describe("dsv-dataset", function () {
   }
 
   it("should parse to strings if types not specified", function() {
-    var dsvString = dsvStrings.iris;
-    var metadata = {
-      delimiter: ","
-    };
 
-    var data = dsvDataset.parse(dsvString, metadata);
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.iris,
+      metadata: {
+        delimiter: ","
+      }
+    });
 
-    assert.equal(data.length, dsvString.split("\n").length - 1);
-    assert.equal(typeof data[0].sepal_length, "string");
+    assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof dataset.data[0].sepal_length, "string");
   });
 
   it("should parse numeric columns", function() {
-    var dsvString = dsvStrings.iris;
-    var metadata = {
-      delimiter: ",",
-      columns: [
-        { name: "sepal_length", type: "number" },
-        { name: "sepal_width",  type: "number" },
-        { name: "petal_length", type: "number" },
-        { name: "petal_width",  type: "number" },
-        { name: "class",        type: "string" }
-      ]
-    };
 
-    var data = dsvDataset.parse(dsvString, metadata);
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.iris,
+      metadata: {
+        delimiter: ",",
+        columns: [
+          { name: "sepal_length", type: "number" },
+          { name: "sepal_width",  type: "number" },
+          { name: "petal_length", type: "number" },
+          { name: "petal_width",  type: "number" },
+          { name: "class",        type: "string" }
+        ]
+      }
+    });
 
-    assert.equal(data.length, dsvString.split("\n").length - 1);
-    assert.equal(typeof data[0].sepal_length, "number");
-    assert.equal(typeof data[0].sepal_width,  "number");
-    assert.equal(typeof data[0].petal_length, "number");
-    assert.equal(typeof data[0].petal_width,  "number");
-    assert.equal(typeof data[0].class,        "string");
+    var row = dataset.data[0];
+
+    assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof row.sepal_length, "number");
+    assert.equal(typeof row.sepal_width,  "number");
+    assert.equal(typeof row.petal_length, "number");
+    assert.equal(typeof row.petal_width,  "number");
+    assert.equal(typeof row.class,        "string");
   });
 
   it("should parse date columns", function() {
-    var dsvString = dsvStrings.temperature;
-    var metadata = {
-      delimiter: ",",
-      columns: [
-        { name: "timestamp", type: "date" },
-        { name: "temperature", type: "number" }
-      ]
-    };
 
-    var data = dsvDataset.parse(dsvString, metadata);
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.temperature,
+      metadata: {
+        delimiter: ",",
+        columns: [
+          { name: "timestamp", type: "date" },
+          { name: "temperature", type: "number" }
+        ]
+      }
+    });
 
-    assert.equal(data.length, dsvString.split("\n").length - 1);
+    assert.equal(dataset.data.length, dsvStrings.temperature.split("\n").length - 1);
 
-    assert(data[0].timestamp instanceof Date);
-    assert.equal(data[0].timestamp.getMonth(), 2);
-    assert.equal(typeof data[0].temperature, "number");
+    assert(dataset.data[0].timestamp instanceof Date);
+    assert.equal(dataset.data[0].timestamp.getMonth(), 2);
+    assert.equal(typeof dataset.data[0].temperature, "number");
   });
 
   it("should assume CSV if no delimiter specified", function() {
-    var dsvString = dsvStrings.iris;
-    var metadata = { };
-    var data = dsvDataset.parse(dsvString, metadata);
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.iris,
+      metadata: {}
+    });
 
-    assert.equal(data.length, dsvString.split("\n").length - 1);
-    assert.equal(typeof data[0].sepal_length, "string");
+    assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof dataset.data[0].sepal_length, "string");
   });
 
   it("should work if no metadata argument provided", function() {
-    var dsvString = dsvStrings.iris;
-    var data = dsvDataset.parse(dsvString);
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.iris
+    });
 
-    assert.equal(data.length, dsvString.split("\n").length - 1);
-    assert.equal(typeof data[0].sepal_length, "string");
+    assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof dataset.data[0].sepal_length, "string");
   });
 });

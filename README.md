@@ -22,32 +22,33 @@ You can also require the library via Bower: `bower install dsv-dataset`. The fil
 Here is an example program that parses three columns from the [Iris dataset](https://archive.ics.uci.edu/ml/datasets/Iris).
 
 ```javascript
-// This string contains CSV data that could be loaded from a .csv file.
-var dsvString = [
-  "sepal_length,sepal_width,petal_length,petal_width,class",
-  "5.1,3.5,1.4,0.2,setosa",
-  "6.2,2.9,4.3,1.3,versicolor",
-  "6.3,3.3,6.0,2.5,virginica"
-].join("\n");
-
-// This metadata object specifies the delimiter and column types.
-// This could be loaded from a .json file.
-var metadata = {
-  delimiter: ",",
-  columns: [
-    { name: "sepal_length", type: "number" },
-    { name: "sepal_width",  type: "number" },
-    { name: "petal_length", type: "number" },
-    { name: "petal_width",  type: "number" },
-    { name: "class",        type: "string" }
-  ]
-};
 
 // Use dsv-dataset to parse the data.
-var data = dsvDataset.parse(dsvString, metadata);
+var dataset = dsvDataset.parse({
+  // This string contains CSV data that could be loaded from a .csv file.
+  dsvString: [
+    "sepal_length,sepal_width,petal_length,petal_width,class",
+    "5.1,3.5,1.4,0.2,setosa",
+    "6.2,2.9,4.3,1.3,versicolor",
+    "6.3,3.3,6.0,2.5,virginica"
+  ].join("\n"),
+
+  // This metadata object specifies the delimiter and column types.
+  // This could be loaded from a .json file.
+  metadata: {
+    delimiter: ",",
+    columns: [
+      { name: "sepal_length", type: "number" },
+      { name: "sepal_width",  type: "number" },
+      { name: "petal_length", type: "number" },
+      { name: "petal_width",  type: "number" },
+      { name: "class",        type: "string" }
+    ]
+  }
+});
 
 // Pretty-print the parsed data table as JSON.
-console.log(JSON.stringify(data, null, 2));
+console.log(JSON.stringify(dataset.data, null, 2));
 ```
 The following JSON will be printed:
 ```json
@@ -79,24 +80,25 @@ Notice how numeric columns have been parsed to numbers.
 
 ## API
 
-<a name="parse" href="#parse">#</a> <i>dsvDataset</i>.<b>parse</b>(<i>dsvString</i>, <i>metadata</i>)
+<a name="parse" href="#parse">#</a> <i>dsvDataset</i>.<b>parse</b>(<i>dataset</i>)
 
-Parses the given DSV string using the given metadata. Returns the parsed data table.
+Parses the given DSV dataset, which is comprised of a DSV string and a metadata specification. This function mutates the <i>dataset</i> argument by adding a `data` property, which contains the parsed data table (an array of row objects). Returns the mutated <i>dataset</i> object.
 
-Arguments:
+Argument structure:
 
- * `dsvString` (string) The data table represented in DSV format, parsed by [d3-dsv](https://github.com/d3/d3-dsv).
- * `metadata` (object, optional) Annotates the data table with metadata, with properties
-   * `delimiter` (string, optional) The delimiter used between values. Typical values are
-     * `","` (CSV) This is the default used if no delimiter is specified.
-     * `"\t"` (TSV)
-     * `"|"`.
-   * `columns` (array of objects) An array of column descriptor objects with properties
-     * `name` (String) The column name found on the first line of the DSV data set.
-     * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
-       * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
-       * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
-       * If no type is specified, the default is "string".
+ * <i>dataset</i> (object) The dataset representation, with properties
+   * `dsvString` (string) The data table represented in DSV format, parsed by [d3-dsv](https://github.com/d3/d3-dsv).
+   * `metadata` (object, optional) Annotates the data table with metadata, with properties
+     * `delimiter` (string, optional) The delimiter used between values. Typical values are
+       * `","` (CSV) This is the default used if no delimiter is specified.
+       * `"\t"` (TSV)
+       * `"|"`.
+     * `columns` (array of objects) An array of column descriptor objects with properties
+       * `name` (String) The column name found on the first line of the DSV data set.
+       * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
+         * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
+         * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
+         * If no type is specified, the default is "string".
 
 ## Project Structure
 

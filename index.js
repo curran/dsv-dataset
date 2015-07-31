@@ -31,10 +31,12 @@ function generateColumnParsers(metadata) {
 }
 
 export default {
-  parse: function (dsvString, metadata){
+  parse: function (dataset){
+
+    var dsvString = dataset.dsvString;
 
     // Handle the case where `metadata` is not speficied.
-    metadata = metadata || {};
+    var metadata = dataset.metadata || {};
 
     // Default to CSV if no delimiter speficied.
     var delimiter = metadata.delimiter || ",";
@@ -43,11 +45,18 @@ export default {
     var numColumns = columnParsers.length;
     var i;
 
-    return dsv(delimiter).parse(dsvString, function (d){
+    dataset.data = dsv(delimiter).parse(dsvString, function (d){
+
+      // Old school for loop as an optimization.
       for(i = 0; i < numColumns; i++){
+
+        // Each column parser function mutates the row object,
+        // replacing the column property string with its parsed variant.
         columnParsers[i](d);
       }
       return d;
     });
+
+    return dataset;
   }
 };
