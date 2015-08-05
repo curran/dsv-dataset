@@ -142,11 +142,13 @@ Each entry in the `columns` array will have the following optional properties:
 
 DSV data sets could have incrementally more useful and powerful "levels" of metadata annotation. These levels might look something like this:
 
- * Level 0 - The DSV string is published on the Web, with no metadata at all.
- * Level 1 - Metadata that includes the delimiter and type of each column is published.
- * Level 2 - The data set is given a title, description, and source URL.
- * Level 3 - All columns have a title.
- * Level 4 - All columns have a description.
+ * Level 0 - There is an intention to publish the data set.
+ * Level 1 - The data set is published in some form other than DSV.
+ * Level 2 - The data set is published on the Web as a valid DSV string.
+ * Level 3 - Metadata that includes the delimiter and type of each column is published.
+ * Level 4 - The data set is given a title, description, and source URL.
+ * Level 5 - All columns have a title.
+ * Level 6 - All columns have a description.
  
 Related work
 
