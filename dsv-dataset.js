@@ -121,6 +121,7 @@
   }
 
   var parseFunctions = {
+    string: function (str){ return str; },
     number: parseFloat,
     date: function (str) {
       return moment(str).toDate();
@@ -129,21 +130,13 @@
 
   function generateColumnParsers(metadata) {
     if("columns" in metadata){
-      return metadata.columns
-
-        // Do not generate column parsing functions for string columns,
-        // because they are already strings and need no modification.
-        .filter(function (column){
-          return column.type !== "string";
-        })
-
-        .map(function (column){
-          var parseValue = parseFunctions[column.type];
-          var columnName = column.name;
-          return function (d){
-            d[columnName] = parseValue(d[columnName]);
-          }
-        });
+      return metadata.columns.map(function (column){
+        var parse = parseFunctions[column.type];
+        var name = column.name;
+        return function (d){
+          d[name] = parse(d[name]);
+        }
+      });
     } else {
       return [];
     }
@@ -162,12 +155,11 @@
 
       var columnParsers = generateColumnParsers(metadata);
       var numColumns = columnParsers.length;
-      var i;
 
       dataset.data = dsv(delimiter).parse(dsvString, function (d){
 
         // Old school for loop as an optimization.
-        for(i = 0; i < numColumns; i++){
+        for(var i = 0; i < numColumns; i++){
 
           // Each column parser function mutates the row object,
           // replacing the column property string with its parsed variant.
