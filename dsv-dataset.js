@@ -121,7 +121,7 @@
   }
 
   var parseFunctions = {
-    string: function (str){ return str; },
+    // implicitly: string: function (str){ return str; },
     number: parseFloat,
     date: function (str) {
       return moment(str).toDate();
@@ -130,13 +130,17 @@
 
   function generateColumnParsers(metadata) {
     if("columns" in metadata){
-      return metadata.columns.map(function (column){
-        var parse = parseFunctions[column.type];
-        var name = column.name;
-        return function (d){
-          d[name] = parse(d[name]);
-        }
-      });
+      return metadata.columns
+        .filter(function (column){
+          return column.type !== "string";
+        })
+        .map(function (column){
+          var parse = parseFunctions[column.type];
+          var name = column.name;
+          return function (d){
+            d[name] = parse(d[name]);
+          }
+        });
     } else {
       return [];
     }
