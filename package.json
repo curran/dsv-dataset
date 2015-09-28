@@ -30,8 +30,7 @@
   },
   "homepage": "https://github.com/curran/dsv-dataset#readme",
   "dependencies": {
-    "d3-dsv": "^0.1.5",
-    "moment": "^2.10.5"
+    "d3-dsv": "^0.1.5"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
