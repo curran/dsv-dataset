@@ -101,18 +101,14 @@ Argument structure:
         * `name` (String) The column name found on the first line of the DSV data set.
         * `type` (String - one of `"string"`, `"number"` or `"date"`) The type of this column.
             * If `type` is `"number"`, then [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat) will parse the string.
-            * If `type` is `"date"`, then [moment(String)](http://momentjs.com/docs/#/parsing/string/) will parse the string.
+            * If `type` is `"date"`, then [new Date(String)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) will parse the string.
             * If no type is specified, the default is "string".
 
 ## Project Structure
 
-This project uses [NPM](https://www.npmjs.com/) as the primary build tool. The file `package.json` specifies that this project depends on [d3-dsv](https://github.com/d3/d3-dsv) and [moment.js](http://momentjs.com/).
+This project uses [NPM](https://www.npmjs.com/) as the primary build tool. The file `package.json` specifies that this project depends on [d3-dsv](https://github.com/d3/d3-dsv).
 
-The main source file is `index.js`. This exposes the top-level `dsvDataset` module using [ES6 Module Syntax](https://github.com/lukehoban/es6features#modules). This file is transformed into `dsv-dataset.js` by [Rollup](https://github.com/rollup/rollup), which outputs a [UMD](https://github.com/umdjs/umd) bundle.
-
-Note that since `d3-dsv` exposes ES6 modules via the `jsnext:main` field in its `package.json`, Rollup includes the necessary modules directly in the `dsv-dataset.js` bundle. Conversely, `moment` is treated as an "external module", so Rollup transforms it into a Node.js `require("moment")` call, and Node.js is responsible for loading the package at runtime.
-
-Unit tests live in `test.js`. These tests run against the built file, `dsv-dataset.js`.
+The main source file is `index.js`. This exposes the top-level `dsvDataset` module using [ES6 Module Syntax](https://github.com/lukehoban/es6features#modules). This file is transformed into `dsv-dataset.js` by [Rollup](https://github.com/rollup/rollup), which outputs a [UMD](https://github.com/umdjs/umd) bundle. Note that since `d3-dsv` exposes ES6 modules via the `jsnext:main` field in its `package.json`, Rollup includes the necessary modules directly in the `dsv-dataset.js` bundle. Unit tests live in `test.js`. These tests run against the built file, `dsv-dataset.js`.
 
 To build `dsv-dataset.js` from `index.js` and run unit tests, run the command
 
