@@ -1,6 +1,6 @@
 {
   "name": "dsv-dataset",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A metadata specification and parsing library for data sets.",
   "main": "dsv-dataset.js",
   "jsnext:main": "index.js",
