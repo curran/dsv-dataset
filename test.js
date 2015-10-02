@@ -18,6 +18,20 @@ describe("dsv-dataset", function () {
       "7.1,3.0,5.9,2.1,virginica"
     ].join("\n"),
 
+    irisWithQuotes: [
+      '"class","petal_length","petal_width","sepal_length","sepal_width"',
+      '"setosa","1.4","0.2","5.1","3.5"',
+      '"setosa","1.4","0.2","4.9","3.0"',
+      '"setosa","1.3","0.2","4.7","3.2"',
+      '"setosa","1.5","0.2","4.6","3.1"',
+      '"setosa","1.4","0.2","5.0","3.6"',
+      '"setosa","1.7","0.4","5.4","3.9"',
+      '"setosa","1.4","0.3","4.6","3.4"',
+      '"setosa","1.4","0.2","4.4","2.9"',
+      '"setosa","1.5","0.1","4.9","3.1"',
+      '"setosa","1.4","0.1","4.8","3.0"'
+    ].join("\n"),
+
     temperature: [
       "timestamp,temperature",
       "2015-03-20T21:00:00.000Z,23.9516625615764",
@@ -65,6 +79,32 @@ describe("dsv-dataset", function () {
     var row = dataset.data[0];
 
     assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof row.sepal_length, "number");
+    assert.equal(typeof row.sepal_width,  "number");
+    assert.equal(typeof row.petal_length, "number");
+    assert.equal(typeof row.petal_width,  "number");
+    assert.equal(typeof row.class,        "string");
+  });
+
+  it("should parse numeric columns with quotes", function() {
+
+    var dataset = dsvDataset.parse({
+      dsvString: dsvStrings.irisWithQuotes,
+      metadata: {
+        delimiter: ",",
+        columns: [
+          { name: "sepal_length", type: "number" },
+          { name: "sepal_width",  type: "number" },
+          { name: "petal_length", type: "number" },
+          { name: "petal_width",  type: "number" },
+          { name: "class",        type: "string" }
+        ]
+      }
+    });
+
+    var row = dataset.data[0];
+
+    assert.equal(dataset.data.length, dsvStrings.irisWithQuotes.split("\n").length - 1);
     assert.equal(typeof row.sepal_length, "number");
     assert.equal(typeof row.sepal_width,  "number");
     assert.equal(typeof row.petal_length, "number");
