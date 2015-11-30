@@ -152,7 +152,11 @@
       var dsvString = dataset.dsvString;
 
       // Handle the case where `metadata` is not speficied.
-      var metadata = dataset.metadata || {};
+      dataset.metadata = dataset.metadata || {};
+      var metadata = dataset.metadata;
+
+      // Handle the case where `metadata.columns` is not speficied.
+      metadata.columns = metadata.columns || [];
 
       // Default to CSV if no delimiter speficied.
       var delimiter = metadata.delimiter || ",";
@@ -171,6 +175,22 @@
         }
         return d;
       });
+
+      // Add column descriptors for string columns with no descriptors in the schema.
+      var columnsInMetadata = {};
+      metadata.columns.forEach(function (column){
+        columnsInMetadata[column.name] = true;
+      });
+      if(dataset.data.length > 0){
+        Object.keys(dataset.data[0]).forEach(function (columnName){
+          if(!columnsInMetadata[columnName]){
+            metadata.columns.push({
+              name: columnName,
+              type: "string"
+            });
+          }
+        });
+      }
 
       return dataset;
     }

@@ -1,5 +1,6 @@
 var dsvDataset = require("./dsv-dataset.js");
 var assert = require("assert");
+var ChiasmDataset = require("chiasm-dataset");
 
 describe("dsv-dataset", function () {
 
@@ -47,7 +48,7 @@ describe("dsv-dataset", function () {
 
   }
 
-  it("should parse to strings if types not specified", function() {
+  it("should parse to strings if types not specified", function(done) {
 
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.iris,
@@ -58,6 +59,8 @@ describe("dsv-dataset", function () {
 
     assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
     assert.equal(typeof dataset.data[0].sepal_length, "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
   it("should parse numeric columns", function() {
