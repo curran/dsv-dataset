@@ -63,7 +63,7 @@ describe("dsv-dataset", function () {
     ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
-  it("should parse numeric columns", function() {
+  it("should parse numeric columns", function(done) {
 
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.iris,
@@ -87,9 +87,11 @@ describe("dsv-dataset", function () {
     assert.equal(typeof row.petal_length, "number");
     assert.equal(typeof row.petal_width,  "number");
     assert.equal(typeof row.class,        "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
-  it("should parse numeric columns with quotes", function() {
+  it("should parse numeric columns with quotes", function(done) {
 
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.irisWithQuotes,
@@ -113,9 +115,11 @@ describe("dsv-dataset", function () {
     assert.equal(typeof row.petal_length, "number");
     assert.equal(typeof row.petal_width,  "number");
     assert.equal(typeof row.class,        "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
-  it("should parse date columns", function() {
+  it("should parse date columns", function(done) {
 
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.temperature,
@@ -133,9 +137,11 @@ describe("dsv-dataset", function () {
     assert(dataset.data[0].timestamp instanceof Date);
     assert.equal(dataset.data[0].timestamp.getMonth(), 2);
     assert.equal(typeof dataset.data[0].temperature, "number");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
-  it("should assume CSV if no delimiter specified", function() {
+  it("should assume CSV if no delimiter specified", function(done) {
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.iris,
       metadata: {}
@@ -143,14 +149,18 @@ describe("dsv-dataset", function () {
 
     assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
     assert.equal(typeof dataset.data[0].sepal_length, "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 
-  it("should work if no metadata argument provided", function() {
+  it("should work if no metadata argument provided", function(done) {
     var dataset = dsvDataset.parse({
       dsvString: dsvStrings.iris
     });
 
     assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
     assert.equal(typeof dataset.data[0].sepal_length, "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
   });
 });
