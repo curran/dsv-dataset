@@ -29,8 +29,6 @@ function generateColumnParsers(metadata) {
 export default {
   parse: function (dataset){
 
-    var dsvString = dataset.dsvString;
-
     // Handle the case where `metadata` is not speficied.
     dataset.metadata = dataset.metadata || {};
     var metadata = dataset.metadata;
@@ -38,13 +36,19 @@ export default {
     // Handle the case where `metadata.columns` is not speficied.
     metadata.columns = metadata.columns || [];
 
-    // Default to CSV if no delimiter speficied.
-    var delimiter = metadata.delimiter || ",";
-
     var columnParsers = generateColumnParsers(metadata);
     var numColumns = columnParsers.length;
 
-    dataset.data = dsv(delimiter).parse(dsvString, function (d){
+    var data;
+    if(dataset.data){
+      data = dataset.data;
+    } else {
+      // Default to CSV if no delimiter speficied.
+      data = dsv(metadata.delimiter || ",")
+        .parse(dataset.dsvString);
+    }
+
+    dataset.data = data.map(function (d){
 
       // Old school for loop as an optimization.
       for(var i = 0; i < numColumns; i++){

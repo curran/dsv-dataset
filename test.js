@@ -1,6 +1,7 @@
 var dsvDataset = require("./dsv-dataset.js");
 var assert = require("assert");
 var ChiasmDataset = require("chiasm-dataset");
+var csv = require("d3-dsv").csv;
 
 describe("dsv-dataset", function () {
 
@@ -160,6 +161,34 @@ describe("dsv-dataset", function () {
 
     assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
     assert.equal(typeof dataset.data[0].sepal_length, "string");
+
+    ChiasmDataset.validate(dataset).then(done, console.log);
+  });
+
+  it("should accept 'data' argument instead of 'dsvString'", function(done) {
+
+    var dataset = dsvDataset.parse({
+      data: csv.parse(dsvStrings.iris),
+      metadata: {
+        delimiter: ",",
+        columns: [
+          { name: "sepal_length", type: "number" },
+          { name: "sepal_width",  type: "number" },
+          { name: "petal_length", type: "number" },
+          { name: "petal_width",  type: "number" },
+          { name: "class",        type: "string" }
+        ]
+      }
+    });
+
+    var row = dataset.data[0];
+
+    assert.equal(dataset.data.length, dsvStrings.iris.split("\n").length - 1);
+    assert.equal(typeof row.sepal_length, "number");
+    assert.equal(typeof row.sepal_width,  "number");
+    assert.equal(typeof row.petal_length, "number");
+    assert.equal(typeof row.petal_width,  "number");
+    assert.equal(typeof row.class,        "string");
 
     ChiasmDataset.validate(dataset).then(done, console.log);
   });
